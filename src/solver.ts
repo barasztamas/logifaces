@@ -1,8 +1,14 @@
 import { getCorners, Place } from './place';
 import { CornerHeights, getCornerHeights, PlacedTriangle } from './placed-triangle';
-import { Triangle } from './triangles';
+import { Triangle, triangles } from './triangles';
+import { shapes } from './shapes';
+import { mapObject } from './tools';
 
-function findAllSolutions() {}
+function findAllSolutions() {
+    const solutions: PlacedTriangle[][] = [];
+    mapObject(shapes, (shape) => findSolutionsRecursive(shape, triangles, [], solutions));
+    console.log('Found', solutions.length, 'solutions');
+}
 
 function findSolutionsRecursive(
     shape: Place[],
