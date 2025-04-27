@@ -26,3 +26,10 @@ export const triangles: Triangle[] = [
 export function isTriangleFlat(triangle: Triangle) {
     return triangle[0] === triangle[1] && triangle[1] === triangle[2];
 }
+export function areEqual(tt: Triangle, t: Triangle): unknown {
+    return (
+        (tt[0] === t[0] && tt[1] === t[1] && tt[2] === t[2]) ||
+        (tt[0] === t[2] && tt[1] === t[0] && tt[2] === t[1]) ||
+        (tt[0] === t[1] && tt[1] === t[2] && tt[2] === t[0])
+    );
+}

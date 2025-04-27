@@ -1,6 +1,6 @@
 import { getCorners, Place } from './place';
 import { CornerHeights, getCornerHeights, PlacedTriangle, Rotation } from './placed-triangle';
-import { isTriangleFlat, Triangle, triangles } from './triangles';
+import { areEqual, isTriangleFlat, Triangle, triangles } from './triangles';
 import { shapes } from './shapes';
 import { mapObject } from './tools';
 
@@ -14,7 +14,7 @@ export function findAllSolutions() {
         JSON.stringify(
             mapObject(allSolutions, (solutions) => ({
                 l: solutions.length,
-                s: solutions.map((s) => ({ s, c: getCornerHeights(s) })),
+                // s: solutions.map((s) => ({ s, c: getCornerHeights(s) })),
             })),
         ),
     );
@@ -33,9 +33,7 @@ function findSolutionsRecursive(
     } else {
         const [place, ...remainingShape] = shape;
         const cornerHeights = getCornerHeights(placedTriangles);
-        const distinctTriangles = triangles.filter(
-            (t, i) => i === triangles.findIndex((tt) => tt[0] === t[0] && tt[1] === t[1] && tt[2] === t[2]),
-        );
+        const distinctTriangles = triangles.filter((t, i) => i === triangles.findIndex((tt) => areEqual(tt, t)));
         for (const triangle of distinctTriangles) {
             for (const rotation of (isTriangleFlat(triangle) ? [0] : [0, 1, 2]) as Rotation[]) {
                 const placedTriangle = { place, triangle, rotation };
