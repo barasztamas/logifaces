@@ -22,3 +22,7 @@ export const triangles: Triangle[] = [
     [1, 2, 3],
     [2, 3, 3],
 ];
+
+export function isTriangleFlat(triangle: Triangle) {
+    return triangle[0] === triangle[1] && triangle[1] === triangle[2];
+}
