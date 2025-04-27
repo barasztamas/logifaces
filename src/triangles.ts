@@ -1,9 +1,7 @@
-type CornerHeight = 1 | 2 | 3;
-
 /**
  * The triangles are defined clockwise from the top corner.
  */
-export type Triangle = [CornerHeight, CornerHeight, CornerHeight];
+export type Triangle = [number, number, number];
 export const triangles: Triangle[] = [
     [1, 1, 1],
     [1, 1, 2],
