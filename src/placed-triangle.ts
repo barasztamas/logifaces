@@ -14,7 +14,7 @@ export function getCornerHeights(placedTriangles: PlacedTriangle[]): CornerHeigh
         const corners = getCorners(place);
         for (let i = 0; i < 3; i++) {
             const { x, y } = corners[i];
-            const height = triangle[(i + rotation) % 3];
+            const height = triangle[(i + 3 - rotation) % 3];
             if (!cornerHeights[x]) {
                 cornerHeights[x] = {};
             }

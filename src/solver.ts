@@ -38,12 +38,12 @@ function findSolutionsRecursive(
     }
 }
 
-function isValidCombination(cornerHeights: CornerHeights, placedTriangle: PlacedTriangle) {
-    const corners = getCorners(placedTriangle.place);
+function isValidCombination(cornerHeights: CornerHeights, { place, triangle, rotation }: PlacedTriangle) {
+    const corners = getCorners(place);
     for (let i = 0; i < 3; i++) {
         const { x, y } = corners[i];
-        const height = placedTriangle.triangle[(i + placedTriangle.rotation) % 3];
-        if (cornerHeights[x][y] && cornerHeights[x][y] !== height) {
+        const height = triangle[(i + 3 - rotation) % 3];
+        if (cornerHeights[x]?.[y] && cornerHeights[x][y] !== height) {
             return false;
         }
     }
