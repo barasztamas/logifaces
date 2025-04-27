@@ -1,7 +1,9 @@
 import { getCorners, Place } from './place';
 import { Triangle } from './triangles';
 
-export type PlacedTriangle = { place: Place; triangle: Triangle; rotation: 0 | 1 | 2 };
+export type Rotation = 0 | 1 | 2;
+
+export type PlacedTriangle = { place: Place; triangle: Triangle; rotation: Rotation };
 
 export type CornerHeights = number[][];
 export function getCornerHeights(placedTriangles: PlacedTriangle[]): CornerHeights {
