@@ -4,10 +4,13 @@ import { Triangle, triangles } from './triangles';
 import { shapes } from './shapes';
 import { mapObject } from './tools';
 
-function findAllSolutions() {
-    const solutions: PlacedTriangle[][] = [];
-    mapObject(shapes, (shape) => findSolutionsRecursive(shape, triangles, [], solutions));
-    console.log('Found', solutions.length, 'solutions');
+export function findAllSolutions() {
+    const allSolutions = mapObject(shapes, (shape, name) => {
+        const solutions: PlacedTriangle[][] = [];
+        findSolutionsRecursive(shape, triangles, [], solutions);
+        return solutions;
+    });
+    console.log(JSON.stringify(mapObject(allSolutions, (s) => ({ s: s[0], l: s.length, c: getCornerHeights(s[0]) }))));
 }
 
 function findSolutionsRecursive(
@@ -16,8 +19,10 @@ function findSolutionsRecursive(
     placedTriangles: PlacedTriangle[],
     solutions: PlacedTriangle[][],
 ) {
+    // console.log(`${' '.repeat(shape.length)}/`);
     if (shape.length === 0) {
         solutions.push(placedTriangles);
+        console.log(solutions.length);
     } else {
         const [place, ...remainingShape] = shape;
         const cornerHeights = getCornerHeights(placedTriangles);
@@ -36,6 +41,7 @@ function findSolutionsRecursive(
             }
         }
     }
+    // console.log(`${' '.repeat(shape.length)}\\`);
 }
 
 function isValidCombination(cornerHeights: CornerHeights, { place, triangle, rotation }: PlacedTriangle) {
