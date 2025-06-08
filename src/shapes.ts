@@ -1,6 +1,6 @@
 import { Place } from './place';
 
-type Shape = Place[];
+export type Shape = Place[];
 const ShapeRotations = [0, 1, 2, 3, 4, 5] as const;
 export type ShapeRotation = (typeof ShapeRotations)[number];
 

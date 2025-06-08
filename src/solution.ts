@@ -1,6 +1,7 @@
 import { getCorners } from './place';
 import { PlacedTriangle, Rotation } from './placed-triangle';
-import { normalizeShape, rotateShape, ShapeRotation } from './shapes';
+import { getRotationSymmetries, rotateShape, Shape, ShapeRotation } from './shapes';
+import { isEqualTriangle } from './triangles';
 
 export type Solution = PlacedTriangle[];
 
@@ -55,3 +56,27 @@ export function getCornerHeights(placedTriangles: Solution): CornerHeights {
     return cornerHeights;
 }
 
+function shapeOfSolution(solution: Solution): Shape {
+    return solution.map(({ place }) => place);
+}
+
+export function isEqualSolution(a: Solution, b: Solution): boolean {
+    if (a === b) return true;
+
+    if (a.length !== b.length) return false;
+
+    const normalizedA = normalizeSolution(a);
+    const rotations = getRotationSymmetries(shapeOfSolution(a));
+    for (const rotation of rotations) {
+        const rotatedB = rotateSolution(b, rotation);
+        const normalizedB = normalizeSolution(rotatedB);
+        if (JSON.stringify(shapeOfSolution(normalizedA)) !== JSON.stringify(shapeOfSolution(normalizedB))) return false;
+
+        if (JSON.stringify(getCornerHeights(normalizedA)) !== JSON.stringify(getCornerHeights(normalizedB)))
+            return false;
+
+        if (normalizedB.some(({ triangle }, index) => !isEqualTriangle(triangle, normalizedA[index].triangle)))
+            return false;
+    }
+    return true;
+}
