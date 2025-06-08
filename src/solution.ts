@@ -10,7 +10,7 @@ function rotateSolution(solution: Solution, rotateBy: ShapeRotation) {
         return solution;
     }
     const rotatedSolution: Solution = solution.map(({ place, rotation, triangle }) => ({
-        place: rotateShape([place], rotation)[0],
+        place: rotateShape([place], 1)[0],
         rotation: place.direction === 'up' ? rotation : (((rotation + 1) % 3) as Rotation),
         triangle,
     }));
