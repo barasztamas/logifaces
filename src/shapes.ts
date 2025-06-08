@@ -5,17 +5,18 @@ const ShapeRotations = [0, 1, 2, 3, 4, 5] as const;
 type ShapeRotation = (typeof ShapeRotations)[number];
 
 export function rotationSymmetries(_shape: Shape) {
-    const shape = normalizeShape(_shape);
-    return ShapeRotations.filter((rotation) => JSON.stringify(shape) === JSON.stringify(rotateShape(shape, rotation)));
+    const shapeRotations = getShapeRotations(_shape);
+    const shape = shapeRotations[0];
+    return shapeRotations.filter((rotated) => JSON.stringify(shape) === JSON.stringify(rotated));
 }
 
 export function getShapeRotations(shape: Shape): Shape[] {
-    return ShapeRotations.map((rotation) => rotateShape(shape, rotation));
+    return ShapeRotations.map((rotation) => normalizeShape(rotateShape(shape, rotation)));
 }
 
-function rotateShape(shape: Shape, rotation: ShapeRotation): Shape {
+export function rotateShape(shape: Shape, rotation: ShapeRotation): Shape {
     if (rotation === 0) {
-        return normalizeShape(shape);
+        return shape;
     }
     const rotatedShape: Shape = shape.map(({ x, y, direction }) => ({
         x: x + y + (direction === 'up' ? 0 : 1),
