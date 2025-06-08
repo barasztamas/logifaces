@@ -3,7 +3,7 @@ import { PlacedTriangle, Rotation } from './placed-triangle';
 import { isEqualTriangle, isTriangleFlat, Triangle, triangles } from './triangles';
 import { shapes } from './shapes';
 import { mapObject } from './tools';
-import { CornerHeights, getCornerHeights, Solution } from './solution';
+import { CornerHeights, getCornerHeights, isEqualSolution, Solution } from './solution';
 
 export function findAllSolutions() {
     const allSolutions = mapObject(shapes, (shape) => {
@@ -28,9 +28,13 @@ function findSolutionsRecursive(
     solutions: PlacedTriangle[][],
 ) {
     // console.log(`${' '.repeat(shape.length)}/`);
-    if (shape.length === 0) {
-        solutions.push(placedTriangles);
-        console.log(solutions.length);
+    if (triangles.length === 0) {
+        if (!solutions.some((s) => isEqualSolution(s, placedTriangles))) {
+            solutions.push(placedTriangles);
+            console.log(solutions.length);
+        } else {
+            console.log('duplicate');
+        }
     } else {
         const [place, ...remainingShape] = shape;
         const cornerHeights = getCornerHeights(placedTriangles);
