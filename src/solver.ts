@@ -3,10 +3,11 @@ import { CornerHeights, getCornerHeights, PlacedTriangle, Rotation } from './pla
 import { areEqual, isTriangleFlat, Triangle, triangles } from './triangles';
 import { shapes } from './shapes';
 import { mapObject } from './tools';
+import { Solution } from './solution';
 
 export function findAllSolutions() {
     const allSolutions = mapObject(shapes, (shape) => {
-        const solutions: PlacedTriangle[][] = [];
+        const solutions: Solution[] = [];
         findSolutionsRecursive(shape, triangles, [], solutions);
         return solutions;
     });

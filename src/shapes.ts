@@ -2,7 +2,7 @@ import { Place } from './place';
 
 type Shape = Place[];
 const ShapeRotations = [0, 1, 2, 3, 4, 5] as const;
-type ShapeRotation = (typeof ShapeRotations)[number];
+export type ShapeRotation = (typeof ShapeRotations)[number];
 
 export function rotationSymmetries(_shape: Shape) {
     const shapeRotations = getShapeRotations(_shape);
@@ -39,7 +39,7 @@ export function normalizeShape(shape: Shape): Shape {
 }
 
 export const shapes: { [key: string]: Shape } = {
-    triangle: [
+    triangle: normalizeShape([
         { x: 1, y: 1, direction: 'up' },
         { x: 1, y: 1, direction: 'down' },
         { x: 2, y: 1, direction: 'up' },
@@ -56,5 +56,5 @@ export const shapes: { [key: string]: Shape } = {
         { x: 1, y: 3, direction: 'down' },
         { x: 2, y: 3, direction: 'up' },
         { x: 1, y: 4, direction: 'up' },
-    ],
+    ]),
 };
