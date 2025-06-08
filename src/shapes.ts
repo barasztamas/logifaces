@@ -6,7 +6,9 @@ export type ShapeRotation = (typeof ShapeRotations)[number];
 
 export function getRotationSymmetries(_shape: Shape): ShapeRotation[] {
     const shape = normalizeShape(_shape);
-    return ShapeRotations.filter((rotation) => JSON.stringify(shape) === JSON.stringify(rotateShape(shape, rotation)));
+    return ShapeRotations.filter(
+        (rotation) => JSON.stringify(shape) === JSON.stringify(normalizeShape(rotateShape(shape, rotation))),
+    );
 }
 
 export function getShapeRotations(shape: Shape): Shape[] {
