@@ -1,18 +1,18 @@
 import { Place } from './place';
 
 export type Shape = Place[];
-const ShapeRotations = [0, 1, 2, 3, 4, 5] as const;
-export type ShapeRotation = (typeof ShapeRotations)[number];
+export const shapeRotations = [0, 1, 2, 3, 4, 5] as const;
+export type ShapeRotation = (typeof shapeRotations)[number];
 
 export function getRotationSymmetries(_shape: Shape): ShapeRotation[] {
     const shape = normalizeShape(_shape);
-    return ShapeRotations.filter(
+    return shapeRotations.filter(
         (rotation) => JSON.stringify(shape) === JSON.stringify(normalizeShape(rotateShape(shape, rotation))),
     );
 }
 
 export function getShapeRotations(shape: Shape): Shape[] {
-    return ShapeRotations.map((rotation) => normalizeShape(rotateShape(shape, rotation)));
+    return shapeRotations.map((rotation) => normalizeShape(rotateShape(shape, rotation)));
 }
 
 export function rotateShape(shape: Shape, rotation: ShapeRotation): Shape {
