@@ -70,13 +70,13 @@ export function isEqualSolution(a: Solution, b: Solution): boolean {
     for (const rotation of rotations) {
         const rotatedB = rotateSolution(b, rotation);
         const normalizedB = normalizeSolution(rotatedB);
-        if (JSON.stringify(shapeOfSolution(normalizedA)) !== JSON.stringify(shapeOfSolution(normalizedB))) return false;
 
-        if (JSON.stringify(getCornerHeights(normalizedA)) !== JSON.stringify(getCornerHeights(normalizedB)))
-            return false;
-
-        if (normalizedB.some(({ triangle }, index) => !isEqualTriangle(triangle, normalizedA[index].triangle)))
-            return false;
+        if (
+            JSON.stringify(shapeOfSolution(normalizedA)) === JSON.stringify(shapeOfSolution(normalizedB)) &&
+            JSON.stringify(getCornerHeights(normalizedA)) === JSON.stringify(getCornerHeights(normalizedB)) &&
+            normalizedB.every(({ triangle }, index) => isEqualTriangle(triangle, normalizedA[index].triangle))
+        )
+            return true;
     }
-    return true;
+    return false;
 }
