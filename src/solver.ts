@@ -1,9 +1,9 @@
 import { getCorners, Place } from './place';
-import { CornerHeights, getCornerHeights, PlacedTriangle, Rotation } from './placed-triangle';
+import { PlacedTriangle, Rotation } from './placed-triangle';
 import { isEqualTriangle, isTriangleFlat, Triangle, triangles } from './triangles';
 import { shapes } from './shapes';
 import { mapObject } from './tools';
-import { Solution } from './solution';
+import { CornerHeights, getCornerHeights, Solution } from './solution';
 
 export function findAllSolutions() {
     const allSolutions = mapObject(shapes, (shape) => {

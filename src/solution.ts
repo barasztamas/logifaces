@@ -1,3 +1,4 @@
+import { getCorners } from './place';
 import { PlacedTriangle, Rotation } from './placed-triangle';
 import { normalizeShape, rotateShape, ShapeRotation } from './shapes';
 
@@ -33,3 +34,24 @@ function normalizeSolution(solution: Solution): Solution {
                 a.place.x - b.place.x || a.place.y - b.place.y || a.place.direction.localeCompare(b.place.direction),
         );
 }
+
+export type CornerHeights = number[][];
+export function getCornerHeights(placedTriangles: Solution): CornerHeights {
+    const cornerHeights: CornerHeights = [];
+    for (const { place, triangle, rotation } of placedTriangles) {
+        const corners = getCorners(place);
+        for (let i = 0; i < 3; i++) {
+            const { x, y } = corners[i];
+            const height = triangle[(i + 3 - rotation) % 3];
+            if (!cornerHeights[x]) {
+                cornerHeights[x] = [];
+            }
+            if (cornerHeights[x][y] && cornerHeights[x][y] !== height) {
+                throw new Error(`Inconsistent height at (${x}, ${y}): ${cornerHeights[x][y]} vs ${height}`);
+            }
+            cornerHeights[x][y] = height;
+        }
+    }
+    return cornerHeights;
+}
+
