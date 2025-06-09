@@ -10,9 +10,11 @@ export function findAllSolutions() {
     const folderPath = './solutions';
     fs.mkdirSync(folderPath, { recursive: true });
 
-    mapObject(shapes, (shape, shapeName) => {
+    mapObject(shapes, (shape, shapeName: string) => {
+        console.time(shapeName);
         const solutions: Solution[] = [];
         findSolutionsRecursive(shape, triangles, [], solutions);
+        console.timeEnd(shapeName);
 
         const filePath = `${folderPath}/${shapeName}.json`;
         fs.rmSync(filePath, { force: true });
