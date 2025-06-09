@@ -4,6 +4,7 @@ import { isEqualTriangle, isTriangleFlat, Triangle, triangles } from './triangle
 import { shapes } from './shapes';
 import { mapObject } from './tools';
 import { CornerHeights, getCornerHeights, isEqualSolution, Solution } from './solution';
+import * as fs from 'fs';
 
 export function findAllSolutions() {
     const allSolutions = mapObject(shapes, (shape) => {
@@ -11,14 +12,16 @@ export function findAllSolutions() {
         findSolutionsRecursive(shape, triangles, [], solutions);
         return solutions;
     });
-    console.log(
-        JSON.stringify(
-            mapObject(allSolutions, (solutions) => ({
-                l: solutions.length,
-                // s: solutions.map((s) => ({ s, c: getCornerHeights(s) })),
-            })),
-        ),
-    );
+    const folderPath = './solutions';
+    fs.mkdirSync(folderPath, { recursive: true });
+
+    mapObject(allSolutions, (solutions, shapeName) => {
+        const filePath = `${folderPath}/${shapeName}.json`;
+        fs.rmSync(filePath, { force: true });
+        fs.appendFileSync(filePath, JSON.stringify(solutions));
+
+        console.log(shapeName, solutions.length, filePath);
+    });
 }
 
 function findSolutionsRecursive(
@@ -33,7 +36,7 @@ function findSolutionsRecursive(
             solutions.push(placedTriangles);
             console.log(solutions.length);
         } else {
-            console.log('duplicate');
+            // console.log('duplicate');
         }
     } else {
         const [place, ...remainingShape] = shape;
