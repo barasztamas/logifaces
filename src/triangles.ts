@@ -24,11 +24,24 @@ export const triangles: Triangle[] = [
 export function isTriangleFlat(triangle: Triangle) {
     return triangle[0] === triangle[1] && triangle[1] === triangle[2];
 }
+
+const equalTriangleChache = new Map<Triangle, Map<Triangle, boolean>>();
 export function isEqualTriangle(tt: Triangle, t: Triangle): boolean {
-    return (
-        tt === t ||
+    if (tt === t) return true;
+
+    if (!equalTriangleChache.has(tt)) {
+        equalTriangleChache.set(tt, new Map());
+    }
+    const cache = equalTriangleChache.get(tt)!;
+
+    if (cache.has(t)) {
+        return cache.get(t)!;
+    }
+
+    const ret =
         (tt[0] === t[0] && tt[1] === t[1] && tt[2] === t[2]) ||
         (tt[0] === t[2] && tt[1] === t[0] && tt[2] === t[1]) ||
-        (tt[0] === t[1] && tt[1] === t[2] && tt[2] === t[0])
-    );
+        (tt[0] === t[1] && tt[1] === t[2] && tt[2] === t[0]);
+    cache.set(t, ret);
+    return ret;
 }
