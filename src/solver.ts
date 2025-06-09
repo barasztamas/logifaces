@@ -1,7 +1,7 @@
 import { getCorners, Place } from './place';
 import { PlacedTriangle, Rotation } from './placed-triangle';
 import { isEqualTriangle, isTriangleFlat, Triangle, triangles } from './triangles';
-import { shapes } from './shapes';
+import { normalizedShapes } from './shapes';
 import { mapObject } from './tools';
 import { CornerHeights, getCornerHeights, isEqualSolution, Solution } from './solution';
 import * as fs from 'fs';
@@ -10,7 +10,7 @@ export function findAllSolutions() {
     const folderPath = './solutions';
     fs.mkdirSync(folderPath, { recursive: true });
 
-    mapObject(shapes, (shape, shapeName: string) => {
+    mapObject(normalizedShapes, (shape, shapeName: string) => {
         console.time(shapeName);
         const solutions: Solution[] = [];
         findSolutionsRecursive(shape, triangles, [], solutions);
