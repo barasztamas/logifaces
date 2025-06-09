@@ -1,4 +1,5 @@
 import { Place } from './place';
+import { mapObject } from './tools';
 
 export type Shape = Place[];
 export const shapeRotations = [0, 1, 2, 3, 4, 5] as const;
@@ -39,23 +40,83 @@ export function normalizeShape(shape: Shape): Shape {
         .sort((a, b) => a.y - b.y || a.x - b.x || b.direction.localeCompare(a.direction));
 }
 
-export const shapes: { [key: string]: Shape } = {
-    triangle: normalizeShape([
-        { x: 1, y: 1, direction: 'up' },
-        { x: 1, y: 1, direction: 'down' },
-        { x: 2, y: 1, direction: 'up' },
-        { x: 2, y: 1, direction: 'down' },
-        { x: 3, y: 1, direction: 'up' },
-        { x: 3, y: 1, direction: 'down' },
-        { x: 4, y: 1, direction: 'up' },
-        { x: 1, y: 2, direction: 'up' },
-        { x: 1, y: 2, direction: 'down' },
-        { x: 2, y: 2, direction: 'up' },
-        { x: 2, y: 2, direction: 'down' },
-        { x: 3, y: 2, direction: 'up' },
-        { x: 1, y: 3, direction: 'up' },
-        { x: 1, y: 3, direction: 'down' },
-        { x: 2, y: 3, direction: 'up' },
-        { x: 1, y: 4, direction: 'up' },
-    ]),
-};
+export const shapes: { [key: string]: Shape } = mapObject(
+    {
+        mill_falcon: [
+            { x: 2, y: 1, direction: 'down' },
+            { x: 4, y: 1, direction: 'down' },
+            { x: 1, y: 2, direction: 'down' },
+            { x: 2, y: 2, direction: 'up' },
+            { x: 2, y: 2, direction: 'down' },
+            { x: 3, y: 2, direction: 'up' },
+            { x: 3, y: 2, direction: 'down' },
+            { x: 4, y: 2, direction: 'up' },
+            { x: 4, y: 2, direction: 'down' },
+            { x: 1, y: 3, direction: 'up' },
+            { x: 1, y: 3, direction: 'down' },
+            { x: 2, y: 3, direction: 'up' },
+            { x: 2, y: 3, direction: 'down' },
+            { x: 3, y: 3, direction: 'up' },
+            { x: 3, y: 3, direction: 'down' },
+            { x: 4, y: 3, direction: 'up' },
+        ],
+        meadow: [
+            { x: 1, y: 1, direction: 'down' },
+            { x: 2, y: 1, direction: 'down' },
+            { x: 3, y: 1, direction: 'down' },
+            { x: 1, y: 2, direction: 'up' },
+            { x: 1, y: 2, direction: 'down' },
+            { x: 2, y: 2, direction: 'up' },
+            { x: 2, y: 2, direction: 'down' },
+            { x: 3, y: 2, direction: 'up' },
+            { x: 0, y: 3, direction: 'down' },
+            { x: 1, y: 3, direction: 'up' },
+            { x: 1, y: 3, direction: 'down' },
+            { x: 2, y: 3, direction: 'up' },
+            { x: 2, y: 3, direction: 'down' },
+            { x: 0, y: 4, direction: 'up' },
+            { x: 1, y: 4, direction: 'up' },
+            { x: 2, y: 4, direction: 'up' },
+        ],
+        parallelogram: [1, 2, 3, 4]
+            .map((x) => [1, 2].map((y) => (['up', 'down'] as const).map((direction) => ({ x, y, direction }))))
+            .flat(2),
+        triangle: [
+            { x: 1, y: 1, direction: 'up' },
+            { x: 1, y: 1, direction: 'down' },
+            { x: 2, y: 1, direction: 'up' },
+            { x: 2, y: 1, direction: 'down' },
+            { x: 3, y: 1, direction: 'up' },
+            { x: 3, y: 1, direction: 'down' },
+            { x: 4, y: 1, direction: 'up' },
+            { x: 1, y: 2, direction: 'up' },
+            { x: 1, y: 2, direction: 'down' },
+            { x: 2, y: 2, direction: 'up' },
+            { x: 2, y: 2, direction: 'down' },
+            { x: 3, y: 2, direction: 'up' },
+            { x: 1, y: 3, direction: 'up' },
+            { x: 1, y: 3, direction: 'down' },
+            { x: 2, y: 3, direction: 'up' },
+            { x: 1, y: 4, direction: 'up' },
+        ],
+        ship: [
+            { x: 2, y: 1, direction: 'down' },
+            { x: 3, y: 1, direction: 'up' },
+            { x: 3, y: 1, direction: 'down' },
+            { x: 4, y: 1, direction: 'up' },
+            { x: 1, y: 2, direction: 'down' },
+            { x: 2, y: 2, direction: 'up' },
+            { x: 2, y: 2, direction: 'down' },
+            { x: 3, y: 2, direction: 'up' },
+            { x: 3, y: 2, direction: 'down' },
+            { x: 1, y: 3, direction: 'up' },
+            { x: 1, y: 3, direction: 'down' },
+            { x: 2, y: 3, direction: 'up' },
+            { x: 2, y: 3, direction: 'down' },
+            { x: 3, y: 3, direction: 'up' },
+            { x: 3, y: 3, direction: 'down' },
+            { x: 1, y: 4, direction: 'up' },
+        ],
+    },
+    normalizeShape,
+);

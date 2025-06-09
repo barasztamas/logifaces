@@ -7,15 +7,13 @@ import { CornerHeights, getCornerHeights, isEqualSolution, Solution } from './so
 import * as fs from 'fs';
 
 export function findAllSolutions() {
-    const allSolutions = mapObject(shapes, (shape) => {
-        const solutions: Solution[] = [];
-        findSolutionsRecursive(shape, triangles, [], solutions);
-        return solutions;
-    });
     const folderPath = './solutions';
     fs.mkdirSync(folderPath, { recursive: true });
 
-    mapObject(allSolutions, (solutions, shapeName) => {
+    mapObject(shapes, (shape, shapeName) => {
+        const solutions: Solution[] = [];
+        findSolutionsRecursive(shape, triangles, [], solutions);
+
         const filePath = `${folderPath}/${shapeName}.json`;
         fs.rmSync(filePath, { force: true });
         fs.appendFileSync(filePath, JSON.stringify(solutions));
@@ -31,10 +29,10 @@ function findSolutionsRecursive(
     solutions: PlacedTriangle[][],
 ) {
     // console.log(`${' '.repeat(shape.length)}/`);
-    if (triangles.length === 0) {
+    if (triangles.length === 0 || shape.length === 0) {
         if (!solutions.some((s) => isEqualSolution(s, placedTriangles))) {
             solutions.push(placedTriangles);
-            console.log(solutions.length);
+            // console.log(solutions.length);
         } else {
             // console.log('duplicate');
         }
