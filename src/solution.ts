@@ -70,8 +70,7 @@ export function isEqualSolution(a: Solution, b: Solution): boolean {
         const normalizedB = normalizeSolution(rotatedB);
         if (
             JSON.stringify(shapeOfSolution(normalizedA)) === JSON.stringify(shapeOfSolution(normalizedB)) &&
-            JSON.stringify(getCornerHeights(normalizedA)) === JSON.stringify(getCornerHeights(normalizedB)) &&
-            normalizedB.every(({ triangle }, index) => isEqualTriangle(triangle, normalizedA[index].triangle))
+            JSON.stringify(getCornerHeights(normalizedA)) === JSON.stringify(getCornerHeights(normalizedB))
         )
             return true;
     }
