@@ -30,10 +30,9 @@ function normalizeSolution(solution: Solution): Solution {
                 direction,
             },
         }))
-        .sort(
-            (a, b) =>
-                a.place.x - b.place.x || a.place.y - b.place.y || a.place.direction.localeCompare(b.place.direction),
-        );
+        .sort(({ place: a }, { place: b }) => {
+            return a.y - b.y || a.x - b.x || b.direction.localeCompare(a.direction);
+        });
 }
 
 export type CornerHeights = number[][];

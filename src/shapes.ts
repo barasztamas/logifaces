@@ -36,7 +36,7 @@ export function normalizeShape(shape: Shape): Shape {
             y: y - minY,
             direction,
         }))
-        .sort((a, b) => a.x - b.x || a.y - b.y || a.direction.localeCompare(b.direction));
+        .sort((a, b) => a.y - b.y || a.x - b.x || b.direction.localeCompare(a.direction));
 }
 
 export const shapes: { [key: string]: Shape } = {
