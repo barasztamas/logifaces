@@ -1,10 +1,10 @@
 import { getCorners, Place } from './place';
 import { PlacedTriangle, Rotation } from './placed-triangle';
-import { isEqualTriangle, isTriangleFlat, Triangle, triangles } from './triangles';
-import { normalizedShapes } from './shapes';
+import { isEqualTriangle, isTriangleFlat, Triangle } from './triangles';
 import { mapObject } from './tools';
 import { CornerHeights, getCornerHeights, isEqualSolution, Solution } from './solution';
 import * as fs from 'fs';
+import { normalizedShapes, triangles } from '../data/data';
 
 export function findAllSolutions() {
     const folderPath = './solutions';
@@ -30,13 +30,9 @@ function findSolutionsRecursive(
     placedTriangles: PlacedTriangle[],
     solutions: PlacedTriangle[][],
 ) {
-    // console.log(`${' '.repeat(shape.length)}/`);
     if (triangles.length === 0 || shape.length === 0) {
         if (!solutions.some((s) => isEqualSolution(s, placedTriangles))) {
             solutions.push(placedTriangles);
-            // console.log(solutions.length);
-        } else {
-            // console.log('duplicate');
         }
     } else {
         const [place, ...remainingShape] = shape;
@@ -57,7 +53,6 @@ function findSolutionsRecursive(
             }
         }
     }
-    // console.log(`${' '.repeat(shape.length)}\\`);
 }
 
 function isValidCombination(cornerHeights: CornerHeights, { place, triangle, rotation }: PlacedTriangle) {
