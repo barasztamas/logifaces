@@ -1,0 +1,112 @@
+import { normalizeShape, Shape } from '../src/shapes';
+import { mapObject } from '../src/tools';
+import { Triangle } from '../src/triangles';
+
+/**
+ * The triangles are defined clockwise from the top corner.
+ */
+export const triangles: Triangle[] = [
+    [1, 3, 2],
+    [3, 2, 1],
+    [3, 1, 2],
+    [1, 2, 3],
+    [3, 3, 1],
+    [1, 3, 1],
+    [2, 2, 1],
+    [1, 1, 2],
+    [2, 2, 2],
+];
+
+const shapes: { [key: string]: Shape } = {
+    hammer: [
+        { x: 0, y: 1, direction: 'up' },
+        { x: 0, y: 1, direction: 'down' },
+        { x: 1, y: 1, direction: 'up' },
+        { x: 1, y: 1, direction: 'down' },
+        { x: 2, y: 1, direction: 'up' },
+        { x: 2, y: 1, direction: 'down' },
+        { x: 1, y: 2, direction: 'up' },
+        { x: 3, y: 1, direction: 'up' },
+        { x: 3, y: 0, direction: 'down' },
+    ],
+    snake: [
+        { x: 0, y: 1, direction: 'down' },
+        { x: 1, y: 1, direction: 'up' },
+        { x: 1, y: 1, direction: 'down' },
+        { x: 2, y: 1, direction: 'up' },
+        { x: 2, y: 0, direction: 'down' },
+        { x: 3, y: 0, direction: 'up' },
+        { x: 3, y: 0, direction: 'down' },
+        { x: 3, y: 1, direction: 'up' },
+        { x: 3, y: 1, direction: 'down' },
+        { x: 4, y: 1, direction: 'up' },
+    ],
+    heron: [
+        { x: 1, y: 0, direction: 'up' },
+        { x: 1, y: 0, direction: 'down' },
+        { x: 1, y: 1, direction: 'up' },
+        { x: 1, y: 1, direction: 'down' },
+        { x: 2, y: 1, direction: 'up' },
+        { x: 1, y: 2, direction: 'up' },
+        { x: 0, y: 2, direction: 'down' },
+        { x: 0, y: 2, direction: 'up' },
+        { x: -1, y: 2, direction: 'down' },
+    ],
+    straight: [
+        { x: 0, y: 0, direction: 'down' },
+        { x: 1, y: 0, direction: 'up' },
+        { x: 1, y: 0, direction: 'down' },
+        { x: 2, y: 0, direction: 'up' },
+        { x: 2, y: 0, direction: 'down' },
+        { x: 3, y: 0, direction: 'up' },
+        { x: 3, y: 0, direction: 'down' },
+        { x: 4, y: 0, direction: 'up' },
+        { x: 4, y: -1, direction: 'down' },
+    ],
+    block: [
+        { x: 0, y: 0, direction: 'up' },
+        { x: 0, y: 0, direction: 'down' },
+        { x: 1, y: 0, direction: 'up' },
+        { x: 1, y: 0, direction: 'down' },
+        { x: 2, y: 0, direction: 'up' },
+        { x: 1, y: 1, direction: 'up' },
+        { x: 0, y: 1, direction: 'down' },
+        { x: 0, y: 1, direction: 'up' },
+        { x: -1, y: 1, direction: 'down' },
+    ],
+    star: [
+        { x: 0, y: 1, direction: 'up' },
+        { x: 0, y: 1, direction: 'down' },
+        { x: 0, y: 2, direction: 'up' },
+        { x: 0, y: 2, direction: 'down' },
+        { x: 0, y: 3, direction: 'up' },
+        { x: -1, y: 2, direction: 'down' },
+        { x: 1, y: 2, direction: 'down' },
+        { x: 2, y: 1, direction: 'up' },
+        { x: 1, y: 0, direction: 'down' },
+    ],
+    v: [
+        { x: 1, y: 0, direction: 'down' },
+        { x: 1, y: 1, direction: 'up' },
+        { x: 0, y: 1, direction: 'down' },
+        { x: 0, y: 2, direction: 'up' },
+        { x: 0, y: 2, direction: 'down' },
+        { x: 1, y: 2, direction: 'up' },
+        { x: 1, y: 2, direction: 'down' },
+        { x: 2, y: 2, direction: 'up' },
+        { x: 2, y: 1, direction: 'down' },
+    ],
+    butterfly: [
+        { x: 1, y: 0, direction: 'up' },
+        { x: 1, y: 0, direction: 'down' },
+        { x: 2, y: 0, direction: 'up' },
+        { x: 2, y: 0, direction: 'down' },
+        { x: 3, y: 0, direction: 'up' },
+        { x: 0, y: 1, direction: 'down' },
+        { x: 1, y: 1, direction: 'up' },
+        { x: 2, y: 1, direction: 'up' },
+        { x: 2, y: 1, direction: 'down' },
+    ],
+};
+
+export const normalizedShapes = mapObject(shapes, normalizeShape);
