@@ -8,6 +8,6 @@ Solutions are an array of [placed triangles](./src/placed-triangle.ts). They can
 
 -   `place` is coded as the black script
 -   `triangle` block (numbers denote hight clockwise) is placed according to the green arrows, corner with first hight where arrow starts if `rotation` is zero
--   `rotation` codes rotation of the triangle, along the green arrow
+-   `rotation` codes rotation of the triangle clockwise, along the green arrow
 
-If you want to solve another logifaces set, or another shape with the same set change `shapes` in (shapes.ts)[./src/shapes.ts] and/or `triangles` in (triangles.ts)[./src/triangles.ts]
+If you want to solve another logifaces set, or another shape with the same set, expand the existing datasets or add new ones in the (data folder)[./data]
