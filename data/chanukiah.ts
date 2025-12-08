@@ -5,7 +5,7 @@ import { Triangle } from '../src/triangles';
 /**
  * The triangles are defined clockwise from the top corner.
  */
-export const triangles: Triangle[] = [
+const triangles: Triangle[] = [
     [1, 3, 2],
     [3, 2, 1],
     [3, 1, 2],
@@ -109,4 +109,4 @@ const shapes: { [key: string]: Shape } = {
     ],
 };
 
-export const normalizedShapes = mapObject(shapes, normalizeShape);
+export const chanukiah = { triangles, shapes };

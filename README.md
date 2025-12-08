@@ -1,6 +1,6 @@
 # Logifaces solver
 
-Generates solutions for [Logifaces original](https://www.logifaces.com/product-page/copy-of-logifaces-original-16-pcs-game-concrete)
+Generates solutions for Logifaces [original](https://www.logifaces.com/product-page/copy-of-logifaces-original-16-pcs-game-concrete) and [miracle edition](https://www.logifaces.com/product-page/logifaces-miracle-edition) games
 
 Run `npm start` to generate solution jsons in the `/solution` folder, for each shape on [logifaces.jpg](./logifaces.jpg)
 

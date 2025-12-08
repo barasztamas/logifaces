@@ -4,13 +4,26 @@ import { isEqualTriangle, isTriangleFlat, Triangle } from './triangles';
 import { mapObject } from './tools';
 import { CornerHeights, getCornerHeights, isEqualSolution, Solution } from './solution';
 import * as fs from 'fs';
-import { normalizedShapes, triangles } from '../data/data';
+import { normalizeShape, Shape } from './shapes';
+import { dataSets } from '../data';
 
 export function findAllSolutions() {
     const folderPath = './solutions';
+    mapObject(dataSets, (dataSet, setName: string) => {
+        console.log(`${setName} dataset ...`);
+        console.time(`${setName} dataset`);
+        findAllSolutionsForSet(folderPath + `/${setName}`, dataSet.triangles, dataSet.shapes);
+        console.timeEnd(`${setName} dataset`);
+        console.log('');
+    });
+}
+
+function findAllSolutionsForSet(folderPath: string, triangles: Triangle[], shapes: { [shape: string]: Shape }) {
     fs.mkdirSync(folderPath, { recursive: true });
+    const normalizedShapes = mapObject(shapes, normalizeShape);
 
     mapObject(normalizedShapes, (shape, shapeName: string) => {
+        console.log(`${shapeName} ...`);
         console.time(shapeName);
         const solutions: Solution[] = [];
         findSolutionsRecursive(shape, triangles, [], solutions);
