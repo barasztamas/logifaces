@@ -41,7 +41,7 @@ const shapes: { [key: string]: Shape } = {
         { x: 3, y: 1, direction: 'down' },
         { x: 4, y: 1, direction: 'up' },
     ],
-    heron: [
+    roadRunner: [
         { x: 1, y: 0, direction: 'up' },
         { x: 1, y: 0, direction: 'down' },
         { x: 1, y: 1, direction: 'up' },
@@ -106,6 +106,17 @@ const shapes: { [key: string]: Shape } = {
         { x: 1, y: 1, direction: 'up' },
         { x: 2, y: 1, direction: 'up' },
         { x: 2, y: 1, direction: 'down' },
+    ],
+    triangle: [
+        { x: 0, y: 0, direction: 'up' },
+        { x: 0, y: 0, direction: 'down' },
+        { x: 1, y: 0, direction: 'up' },
+        { x: 1, y: 0, direction: 'down' },
+        { x: 2, y: 0, direction: 'up' },
+        { x: 1, y: 1, direction: 'up' },
+        { x: 0, y: 1, direction: 'down' },
+        { x: 0, y: 1, direction: 'up' },
+        { x: 0, y: 2, direction: 'up' },
     ],
 };
 
