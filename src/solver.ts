@@ -27,12 +27,12 @@ function findAllSolutionsForSet(folderPath: string, triangles: Triangle[], shape
         console.time(shapeName);
         const solutions: Solution[] = [];
         findSolutionsRecursive(shape, triangles, [], solutions);
-        console.timeEnd(shapeName);
 
         const filePath = `${folderPath}/${shapeName}.json`;
         fs.rmSync(filePath, { force: true });
-        fs.appendFileSync(filePath, JSON.stringify(solutions));
+        fs.appendFileSync(filePath, JSON.stringify({ count: solutions.length, solutions }));
 
+        console.timeEnd(shapeName);
         console.log(shapeName, solutions.length, filePath);
     });
 }
