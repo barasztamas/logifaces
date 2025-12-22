@@ -1,6 +1,8 @@
 import { Place } from './place';
-import { Triangle } from './triangles';
+import { rotateTriangle, Rotation, Triangle } from './triangles';
 
-export type Rotation = 0 | 1 | 2;
+export type PlacedTriangle = { place: Place; triangle: Triangle };
 
-export type PlacedTriangle = { place: Place; triangle: Triangle; rotation: Rotation };
+export function placeTriangle(place: Place, triangle: Triangle, rotation: Rotation): PlacedTriangle {
+    return { place, triangle: rotateTriangle(triangle, rotation) };
+}

@@ -1,7 +1,7 @@
 import { getCorners } from './place';
-import { PlacedTriangle, Rotation } from './placed-triangle';
+import { PlacedTriangle } from './placed-triangle';
+import { rotateTriangle, Rotation } from './triangles';
 import { rotateShape, Shape, ShapeRotation, shapeRotations } from './shapes';
-import { isEqualTriangle } from './triangles';
 
 export type Solution = PlacedTriangle[];
 
@@ -9,10 +9,9 @@ function rotateSolution(solution: Solution, rotateBy: ShapeRotation) {
     if (rotateBy === 0) {
         return solution;
     }
-    const rotatedSolution: Solution = solution.map(({ place, rotation, triangle }) => ({
+    const rotatedSolution: Solution = solution.map(({ place, triangle }) => ({
         place: rotateShape([place], 1)[0],
-        rotation: place.direction === 'up' ? rotation : (((rotation + 1) % 3) as Rotation),
-        triangle,
+        triangle: rotateTriangle(triangle, (place.direction === 'up' ? 0 : 1) as Rotation),
     }));
     return rotateSolution(rotatedSolution, (rotateBy - 1) as ShapeRotation);
 }
@@ -21,8 +20,7 @@ function normalizeSolution(solution: Solution): Solution {
     const minX = Math.min(...solution.map(({ place }) => place.x));
     const minY = Math.min(...solution.map(({ place }) => place.y));
     return solution
-        .map(({ rotation, triangle, place: { x, y, direction } }) => ({
-            rotation,
+        .map(({ triangle, place: { x, y, direction } }) => ({
             triangle,
             place: {
                 x: x - minX,
@@ -38,11 +36,11 @@ function normalizeSolution(solution: Solution): Solution {
 export type CornerHeights = number[][];
 export function getCornerHeights(placedTriangles: Solution): CornerHeights {
     const cornerHeights: CornerHeights = [];
-    for (const { place, triangle, rotation } of placedTriangles) {
+    for (const { place, triangle } of placedTriangles) {
         const corners = getCorners(place);
         for (let i = 0; i < 3; i++) {
             const { x, y } = corners[i];
-            const height = triangle[(i + 3 - rotation) % 3];
+            const height = triangle[i];
             if (!cornerHeights[x]) {
                 cornerHeights[x] = [];
             }
