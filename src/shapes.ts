@@ -1,4 +1,4 @@
-import { Place } from './place';
+import { DOWN, Place, UP } from './place';
 
 export type Shape = Place[];
 export const shapeRotations = [0, 1, 2, 3, 4, 5] as const;
@@ -20,9 +20,9 @@ export function rotateShape(shape: Shape, rotation: ShapeRotation): Shape {
         return shape;
     }
     const rotatedShape: Shape = shape.map(({ x, y, direction }) => ({
-        x: x + y + (direction === 'up' ? 0 : 1),
+        x: x + y + (direction === UP ? 0 : 1),
         y: -x,
-        direction: direction === 'up' ? 'down' : 'up',
+        direction: direction === UP ? DOWN : UP,
     }));
     return rotateShape(rotatedShape, (rotation - 1) as ShapeRotation);
 }

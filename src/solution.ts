@@ -1,4 +1,4 @@
-import { getCorners } from './place';
+import { getCorners, UP } from './place';
 import { PlacedTriangle } from './placed-triangle';
 import { rotateTriangle, Rotation } from './triangles';
 import { rotateShape, Shape, ShapeRotation, shapeRotations } from './shapes';
@@ -11,7 +11,7 @@ function rotateSolution(solution: Solution, rotateBy: ShapeRotation) {
     }
     const rotatedSolution: Solution = solution.map(({ place, triangle }) => ({
         place: rotateShape([place], 1)[0],
-        triangle: rotateTriangle(triangle, (place.direction === 'up' ? 0 : 1) as Rotation),
+        triangle: rotateTriangle(triangle, (place.direction === UP ? 0 : 1) as Rotation),
     }));
     return rotateSolution(rotatedSolution, (rotateBy - 1) as ShapeRotation);
 }
